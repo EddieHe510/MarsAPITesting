@@ -1,0 +1,1560 @@
+{
+	"info": {
+		"_postman_id": "5ff23639-3982-47cb-9ce9-73e8afd9fc22",
+		"name": "AdvancedTaskAPITest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24193385"
+	},
+	"item": [
+		{
+			"name": "Sign in function",
+			"item": [
+				{
+					"name": "Sign In to Mars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"var user_token = jsonData.token.token\r",
+									"pm.environment.set(\"env_token\", \"Bearer\"+\" \"+user_token)\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Success Message\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rememberMe\": false,\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{login_base_url}}/authentication/authentication/signin",
+							"host": [
+								"{{login_base_url}}"
+							],
+							"path": [
+								"authentication",
+								"authentication",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "User Details",
+					"item": [
+						{
+							"name": "User Details",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Message should be same as expected message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Availability Updated Successfully\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"AvailabilityType\": \"{{availabilityType}}\",\r\n    \"AvailableHours\": {{availableHours}},\r\n    \"EarnTarget\": {{earnTarget}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/updateAvailability",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"updateAvailability"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Message should same as expect\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Password Changed Successfully\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"oldPassword\": \"{{password}}\",\r\n  \"newPassword\": \"{{newPassword}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{login_base_url}}/authentication/authentication/updatePassword",
+									"host": [
+										"{{login_base_url}}"
+									],
+									"path": [
+										"authentication",
+										"authentication",
+										"updatePassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Description",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.value).to.eql(100);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"personId\": 0,\r\n  \"description\": \"{{description}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/addInfo",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"addInfo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Languages",
+					"item": [
+						{
+							"name": "Add Languages",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json()\r",
+											"var language_id = jsonData.id\r",
+											"pm.globals.set(\"languages_id\",language_id);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message should be true\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{languageName}}\",\r\n  \"level\": \"{{languageLevel}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/addLanguage",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"addLanguage"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Languages",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message should be true\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{languages_id}}\",\r\n  \"name\": \"{{updateLanguageName}}\",\r\n  \"level\": \"{{updateLanguageLevel}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/updateLanguage",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"updateLanguage"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Languages",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message should be true\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{languages_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/deleteLanguage",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"deleteLanguage"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Skills",
+					"item": [
+						{
+							"name": "Add Skills",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success Message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json()\r",
+											"var skill_id = jsonData.id\r",
+											"pm.globals.set(\"skills_id\",skill_id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"PersonSkillId\": 0,\r\n  \"Skill\": \"{{skill}}\",\r\n  \"ExperienceLevel\": \"{{experienceLevel}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/addSkill",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"addSkill"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Skills",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message should be true\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"PersonSkillId\": \"{{skills_id}}\",\r\n    \"Skill\": \"{{updateSkill}}\",\r\n    \"ExperienceLevel\": \"{{updateExperienceLevel}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/updateSkill",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"updateSkill"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Skills",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message should be true\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"PersonSkillId\": \"{{skills_id}}\",\r\n  \"Skill\": \"{{updateSkill}}\",\r\n  \"ExperienceLevel\": \"{{updateExperienceLevel}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/deleteSkill",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"deleteSkill"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Education",
+					"item": [
+						{
+							"name": "Add Education",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success Message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json()\r",
+											"var education_id = jsonData.id\r",
+											"pm.globals.set(\"educations_id\",education_id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"country\": \"{{country}}\",\r\n  \"instituteName\": \"{{instituteName}}\",\r\n  \"title\": \"{{title}}\",\r\n  \"degree\": \"{{degree}}\",\r\n  \"yearOfGraduation\": \"{{yearOfGraduation}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/addEducation",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"addEducation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Education",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message should be true\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"country\": \"{{updateCountry}}\",\r\n  \"instituteName\": \"{{updateInstituteName}}\",\r\n  \"id\": \"{{educations_id}}\",\r\n  \"title\": \"{{updateTitle}}\",\r\n  \"degree\": \"{{updateDegree}}\",\r\n  \"yearOfGraduation\": \"{{updateYearOfGraduation}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/updateEducation",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"updateEducation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Education",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message should be true\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{educations_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/deleteEducation",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"deleteEducation"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Certifications",
+					"item": [
+						{
+							"name": "Add Certification",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success Message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json()\r",
+											"var certification_id = jsonData.id\r",
+											"pm.globals.set(\"certification_id\",certification_id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"certificationName\": \"{{certiName}}\",\r\n  \"certificationFrom\": \"{{certiForm}}\",\r\n  \"certificationYear\": \"{{certiYear}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/addCertification",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"addCertification"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Certification",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message should be true\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{certification_id}}\",\r\n  \"certificationName\": \"{{updateCerName}}\",\r\n  \"certificationFrom\": \"{{updateCerForm}}\",\r\n  \"certificationYear\": \"{{updateCerYear}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/updateCertification",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"updateCertification"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Certification",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message should be true\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{env_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"{{certification_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{profile_base_url}}/profile/profile/deleteCertification",
+									"host": [
+										"{{profile_base_url}}"
+									],
+									"path": [
+										"profile",
+										"profile",
+										"deleteCertification"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Manage Listings",
+			"item": [
+				{
+					"name": "Add new listing",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"var newlisting_id = jsonData.id\r",
+									"pm.globals.set(\"newlistings_id\",newlisting_id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The success should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{skillTitle}}\",\r\n    \"description\": \"{{skillDescription}}\",\r\n    \"categoryId\": \"{{skillCategoryId}}\",\r\n    \"subcategoryId\": \"{{skillSubcategoryId}}\",\r\n    \"tags\": [\r\n        {\r\n            \"id\": \"{{tagsId1}}\",\r\n            \"text\": \"{{tagsText1}}\"\r\n        },\r\n        {\r\n            \"id\": \"{{tagsId2}}\",\r\n            \"text\": \"{{tagsText2}}\"\r\n        }\r\n    ],\r\n    \"serviceType\": {{skillServiceType}},\r\n    \"locationType\": {{skillLocationType}},\r\n    \"availability\": {\r\n        \"startDate\": \"{{skillStartDate}}\",\r\n        \"endDate\": \"{{skillEndDate}}\",\r\n        \"dayEntries\": [\r\n            {\r\n                \"StartTime\": \"{{skillStartTime}}\",\r\n                \"EndTime\": \"{{skillEndTime}}\",\r\n                \"Available\": {{skillAvailable}}\r\n            },\r\n            {\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\",\r\n                \"Available\": false\r\n            },\r\n            {\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\",\r\n                \"Available\": false\r\n            },\r\n            {\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\",\r\n                \"Available\": false\r\n            },\r\n            {\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\",\r\n                \"Available\": false\r\n            },\r\n            {\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\",\r\n                \"Available\": false\r\n            },\r\n            {\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\",\r\n                \"Available\": false\r\n            }\r\n        ]\r\n    },\r\n    \"skillTrade\": [\r\n        {\r\n            \"id\": \"{{skillTradeId}}\",\r\n            \"text\": \"{{skillTradeText}}\"\r\n        }\r\n    ],\r\n    \"isTradable\": {{isTradable}},\r\n    \"charge\": {{skillCharge}},\r\n    \"credentials\": {{skillCredentials}},\r\n    \"isActive\": {{skillIsActive}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{listings_and_request_url}}/listing/listing/addListing",
+							"host": [
+								"{{listings_and_request_url}}"
+							],
+							"path": [
+								"listing",
+								"listing",
+								"addListing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Listing",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"var listing_id = jsonData.id\r",
+									"pm.globals.set(\"listings_id\",listing_id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Success Message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{updateSkillTitle}}\",\r\n    \"description\": \"{{updateSkillDescription}}\",\r\n    \"categoryId\": {{updateSkillCategoryId}},\r\n    \"subcategoryId\": \"{{updateSkillSubcategoryId}}\",\r\n    \"tags\": [\r\n        {\r\n            \"id\": \"{{updateTagsId1}}\",\r\n            \"text\": \"{{updateTagsText1}}\"\r\n        },\r\n        {\r\n            \"id\": \"{{updateTagsId2}}\",\r\n            \"text\": \"{{updateTagsText2}}\"\r\n        }\r\n    ],\r\n    \"serviceType\": {{updateSkillServiceType}},\r\n    \"locationType\": {{updateSkillLocationType}},\r\n    \"availability\": {\r\n        \"startDate\": \"{{updateSkillStartDate}}\",\r\n        \"endDate\": \"{{updateSkillEndDate}}\",\r\n        \"dayEntries\": [\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": {{updateSkillAvailable}},\r\n                \"StartTime\": \"{{updateSkillStartTime}}\",\r\n                \"EndTime\": \"{{updateSkillEndTime}}\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            }\r\n        ]\r\n    },\r\n    \"skillTrade\": [\r\n        {\r\n            \"id\": \"{{updateSkillTradeId}}\",\r\n            \"text\": \"{{updateSkillTradeText}}\"\r\n        }\r\n    ],\r\n    \"isTradable\": {{updateIsTradable}},\r\n    \"charge\": {{updateSkillCharge}},\r\n    \"credentials\": {{updateSkillCredentials}},\r\n    \"isActive\": {{updateSkillIsActive}},\r\n    \"id\": \"{{newlistings_id}}\",\r\n    \"sellerId\": \"647534923a2ba900019a4570\",\r\n    \"workSample\": null,\r\n    \"comments\": null,\r\n    \"ratings\": null,\r\n    \"ratingAverages\": null,\r\n    \"ratingTotalsAndCounts\": null,\r\n    \"createdOn\": \"2023-07-17T06:39:03.364Z\",\r\n    \"createdBy\": \"647534923a2ba900019a4570\",\r\n    \"updatedOn\": \"2023-08-24T23:51:59.057Z\",\r\n    \"updatedBy\": \"647534923a2ba900019a4570\",\r\n    \"isDeleted\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{listings_and_request_url}}/listing/listing/addListing",
+							"host": [
+								"{{listings_and_request_url}}"
+							],
+							"path": [
+								"listing",
+								"listing",
+								"addListing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Listing",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{listings_id}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{listings_and_request_url}}/listing/listing/deleteServiceListing",
+							"host": [
+								"{{listings_and_request_url}}"
+							],
+							"path": [
+								"listing",
+								"listing",
+								"deleteServiceListing"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Manage Requests",
+			"item": [
+				{
+					"name": "Received Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Id\": \"648a42dc41177900015d8075\",\r\n  \"Status\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{listings_and_request_url}}/listing/listing/updateReceivedRequest",
+							"host": [
+								"{{listings_and_request_url}}"
+							],
+							"path": [
+								"listing",
+								"listing",
+								"updateReceivedRequest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"The success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ListingId\": \"64e82990be746c0001ff2fdd\",\r\n  \"Message\": \"Hello I am Eddie!\",\r\n  \"TotalHours\": 0,\r\n  \"TotalAmount\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{listings_and_request_url}}/listing/listing/sendTradeRequest",
+							"host": [
+								"{{listings_and_request_url}}"
+							],
+							"path": [
+								"listing",
+								"listing",
+								"sendTradeRequest"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "Get the chat room",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"success\": true,\r\n  \"chatroom\": \"5c621663bea4490005ebe9d2\",\r\n  \"myCurrentUser\": \"647534923a2ba900019a4570\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{profile_base_url}}/profile/profile/getFirstChatroom",
+							"host": [
+								"{{profile_base_url}}"
+							],
+							"path": [
+								"profile",
+								"profile",
+								"getFirstChatroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chat room history",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserIdToList\": [\r\n        \"5c621663bea4490005ebe9d2\",\r\n        \"64e82952b5b72800011eb5dd\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{profile_base_url}}/profile/profile/getChatRoomDetailsList/",
+							"host": [
+								"{{profile_base_url}}"
+							],
+							"path": [
+								"profile",
+								"profile",
+								"getChatRoomDetailsList",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search Skills",
+			"item": [
+				{
+					"name": "Search Skill by all categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"terms\": {\r\n    \"searchString\": \"{{searchString}}\",\r\n    \"categoryIndex\": null,\r\n    \"subcategoryIndex\": null,\r\n    \"uId\": null\r\n  },\r\n  \"sortPagination\": {\r\n    \"offset\": 0,\r\n    \"limit\": 9\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{listings_and_request_url}}/listing/listing/searchListings",
+							"host": [
+								"{{listings_and_request_url}}"
+							],
+							"path": [
+								"listing",
+								"listing",
+								"searchListings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search by filters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"terms\": {\r\n    \"searchString\": \"\",\r\n    \"categoryIndex\": 1,\r\n    \"subcategoryIndex\": null,\r\n    \"uId\": null,\r\n    \"serviceType\": \"{{serviceType}}\"\r\n  },\r\n  \"sortPagination\": {\r\n    \"offset\": 0,\r\n    \"limit\": 9\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{listings_and_request_url}}/listing/listing/searchListings",
+							"host": [
+								"{{listings_and_request_url}}"
+							],
+							"path": [
+								"listing",
+								"listing",
+								"searchListings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Get notification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{profile_base_url}}/notification/notification/getNewNotificationCount",
+							"host": [
+								"{{profile_base_url}}"
+							],
+							"path": [
+								"notification",
+								"notification",
+								"getNewNotificationCount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read all notifications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{profile_base_url}}/notification/notification/readAllNotifications",
+							"host": [
+								"{{profile_base_url}}"
+							],
+							"path": [
+								"notification",
+								"notification",
+								"readAllNotifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Load more notifications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{profile_base_url}}/notification/notification/getNotification/?loadMore=6&offSet=0&_=1693267954213",
+							"host": [
+								"{{profile_base_url}}"
+							],
+							"path": [
+								"notification",
+								"notification",
+								"getNotification",
+								""
+							],
+							"query": [
+								{
+									"key": "loadMore",
+									"value": "6"
+								},
+								{
+									"key": "offSet",
+									"value": "0"
+								},
+								{
+									"key": "_",
+									"value": "1693267954213"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Marked Notifications",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{profile_base_url}}/notification/notification/removeMarkedNotifications",
+							"host": [
+								"{{profile_base_url}}"
+							],
+							"path": [
+								"notification",
+								"notification",
+								"removeMarkedNotifications"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
