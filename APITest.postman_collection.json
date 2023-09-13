@@ -182,9 +182,9 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Your test name\", function () {\r",
+											"pm.test(\"The success message should be true\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.value).to.eql(100);\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -556,171 +556,6 @@
 					]
 				},
 				{
-					"name": "Education",
-					"item": [
-						{
-							"name": "Add Education",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Success Message\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.success).to.eql(true);\r",
-											"});\r",
-											"\r",
-											"var jsonData = pm.response.json()\r",
-											"var education_id = jsonData.id\r",
-											"pm.globals.set(\"educations_id\",education_id);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{env_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"country\": \"{{country}}\",\r\n  \"instituteName\": \"{{instituteName}}\",\r\n  \"title\": \"{{title}}\",\r\n  \"degree\": \"{{degree}}\",\r\n  \"yearOfGraduation\": \"{{yearOfGraduation}}\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{profile_base_url}}/profile/profile/addEducation",
-									"host": [
-										"{{profile_base_url}}"
-									],
-									"path": [
-										"profile",
-										"profile",
-										"addEducation"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update Education",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Success message should be true\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.success).to.eql(true);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{env_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"country\": \"{{updateCountry}}\",\r\n  \"instituteName\": \"{{updateInstituteName}}\",\r\n  \"id\": \"{{educations_id}}\",\r\n  \"title\": \"{{updateTitle}}\",\r\n  \"degree\": \"{{updateDegree}}\",\r\n  \"yearOfGraduation\": \"{{updateYearOfGraduation}}\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{profile_base_url}}/profile/profile/updateEducation",
-									"host": [
-										"{{profile_base_url}}"
-									],
-									"path": [
-										"profile",
-										"profile",
-										"updateEducation"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Education",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Success message should be true\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.success).to.eql(true);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{env_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"{{educations_id}}\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{profile_base_url}}/profile/profile/deleteEducation",
-									"host": [
-										"{{profile_base_url}}"
-									],
-									"path": [
-										"profile",
-										"profile",
-										"deleteEducation"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "Certifications",
 					"item": [
 						{
@@ -898,8 +733,8 @@
 							"script": {
 								"exec": [
 									"var jsonData = pm.response.json()\r",
-									"var newlisting_id = jsonData.id\r",
-									"pm.globals.set(\"newlistings_id\",newlisting_id);\r",
+									"var listing_id = jsonData.id\r",
+									"pm.globals.set(\"listings_id\",listing_id);\r",
 									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -953,10 +788,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var jsonData = pm.response.json()\r",
-									"var listing_id = jsonData.id\r",
-									"pm.globals.set(\"listings_id\",listing_id);\r",
-									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
@@ -981,7 +812,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"{{updateSkillTitle}}\",\r\n    \"description\": \"{{updateSkillDescription}}\",\r\n    \"categoryId\": {{updateSkillCategoryId}},\r\n    \"subcategoryId\": \"{{updateSkillSubcategoryId}}\",\r\n    \"tags\": [\r\n        {\r\n            \"id\": \"{{updateTagsId1}}\",\r\n            \"text\": \"{{updateTagsText1}}\"\r\n        },\r\n        {\r\n            \"id\": \"{{updateTagsId2}}\",\r\n            \"text\": \"{{updateTagsText2}}\"\r\n        }\r\n    ],\r\n    \"serviceType\": {{updateSkillServiceType}},\r\n    \"locationType\": {{updateSkillLocationType}},\r\n    \"availability\": {\r\n        \"startDate\": \"{{updateSkillStartDate}}\",\r\n        \"endDate\": \"{{updateSkillEndDate}}\",\r\n        \"dayEntries\": [\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": {{updateSkillAvailable}},\r\n                \"StartTime\": \"{{updateSkillStartTime}}\",\r\n                \"EndTime\": \"{{updateSkillEndTime}}\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            }\r\n        ]\r\n    },\r\n    \"skillTrade\": [\r\n        {\r\n            \"id\": \"{{updateSkillTradeId}}\",\r\n            \"text\": \"{{updateSkillTradeText}}\"\r\n        }\r\n    ],\r\n    \"isTradable\": {{updateIsTradable}},\r\n    \"charge\": {{updateSkillCharge}},\r\n    \"credentials\": {{updateSkillCredentials}},\r\n    \"isActive\": {{updateSkillIsActive}},\r\n    \"id\": \"{{newlistings_id}}\",\r\n    \"sellerId\": \"647534923a2ba900019a4570\",\r\n    \"workSample\": null,\r\n    \"comments\": null,\r\n    \"ratings\": null,\r\n    \"ratingAverages\": null,\r\n    \"ratingTotalsAndCounts\": null,\r\n    \"createdOn\": \"2023-07-17T06:39:03.364Z\",\r\n    \"createdBy\": \"647534923a2ba900019a4570\",\r\n    \"updatedOn\": \"2023-08-24T23:51:59.057Z\",\r\n    \"updatedBy\": \"647534923a2ba900019a4570\",\r\n    \"isDeleted\": false\r\n}",
+							"raw": "{\r\n    \"title\": \"{{updateSkillTitle}}\",\r\n    \"description\": \"{{updateSkillDescription}}\",\r\n    \"categoryId\": {{updateSkillCategoryId}},\r\n    \"subcategoryId\": \"{{updateSkillSubcategoryId}}\",\r\n    \"tags\": [\r\n        {\r\n            \"id\": \"{{updateTagsId1}}\",\r\n            \"text\": \"{{updateTagsText1}}\"\r\n        },\r\n        {\r\n            \"id\": \"{{updateTagsId2}}\",\r\n            \"text\": \"{{updateTagsText2}}\"\r\n        }\r\n    ],\r\n    \"serviceType\": {{updateSkillServiceType}},\r\n    \"locationType\": {{updateSkillLocationType}},\r\n    \"availability\": {\r\n        \"startDate\": \"{{updateSkillStartDate}}\",\r\n        \"endDate\": \"{{updateSkillEndDate}}\",\r\n        \"dayEntries\": [\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": {{updateSkillAvailable}},\r\n                \"StartTime\": \"{{updateSkillStartTime}}\",\r\n                \"EndTime\": \"{{updateSkillEndTime}}\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            }\r\n        ]\r\n    },\r\n    \"skillTrade\": [\r\n        {\r\n            \"id\": \"{{updateSkillTradeId}}\",\r\n            \"text\": \"{{updateSkillTradeText}}\"\r\n        }\r\n    ],\r\n    \"isTradable\": {{updateIsTradable}},\r\n    \"charge\": {{updateSkillCharge}},\r\n    \"credentials\": {{updateSkillCredentials}},\r\n    \"isActive\": {{updateSkillIsActive}},\r\n    \"id\": \"{{listings_id}}\",\r\n    \"sellerId\": \"647534923a2ba900019a4570\",\r\n    \"workSample\": null,\r\n    \"comments\": null,\r\n    \"ratings\": null,\r\n    \"ratingAverages\": null,\r\n    \"ratingTotalsAndCounts\": null,\r\n    \"createdOn\": \"2023-07-17T06:39:03.364Z\",\r\n    \"createdBy\": \"647534923a2ba900019a4570\",\r\n    \"updatedOn\": \"2023-08-24T23:51:59.057Z\",\r\n    \"updatedBy\": \"647534923a2ba900019a4570\",\r\n    \"isDeleted\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1011,6 +842,11 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1028,7 +864,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{{listings_id}}",
+							"raw": "\"{{listings_id}}\"",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1044,329 +880,6 @@
 								"listing",
 								"listing",
 								"deleteServiceListing"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Manage Requests",
-			"item": [
-				{
-					"name": "Received Request",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"Id\": \"648a42dc41177900015d8075\",\r\n  \"Status\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{listings_and_request_url}}/listing/listing/updateReceivedRequest",
-							"host": [
-								"{{listings_and_request_url}}"
-							],
-							"path": [
-								"listing",
-								"listing",
-								"updateReceivedRequest"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Send Request",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"The success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"ListingId\": \"64e82990be746c0001ff2fdd\",\r\n  \"Message\": \"Hello I am Eddie!\",\r\n  \"TotalHours\": 0,\r\n  \"TotalAmount\": 0\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{listings_and_request_url}}/listing/listing/sendTradeRequest",
-							"host": [
-								"{{listings_and_request_url}}"
-							],
-							"path": [
-								"listing",
-								"listing",
-								"sendTradeRequest"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Chat",
-			"item": [
-				{
-					"name": "Get the chat room",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"success\": true,\r\n  \"chatroom\": \"5c621663bea4490005ebe9d2\",\r\n  \"myCurrentUser\": \"647534923a2ba900019a4570\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{profile_base_url}}/profile/profile/getFirstChatroom",
-							"host": [
-								"{{profile_base_url}}"
-							],
-							"path": [
-								"profile",
-								"profile",
-								"getFirstChatroom"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Chat room history",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"The success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"UserIdToList\": [\r\n        \"5c621663bea4490005ebe9d2\",\r\n        \"64e82952b5b72800011eb5dd\"\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{profile_base_url}}/profile/profile/getChatRoomDetailsList/",
-							"host": [
-								"{{profile_base_url}}"
-							],
-							"path": [
-								"profile",
-								"profile",
-								"getChatRoomDetailsList",
-								""
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Search Skills",
-			"item": [
-				{
-					"name": "Search Skill by all categories",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"terms\": {\r\n    \"searchString\": \"{{searchString}}\",\r\n    \"categoryIndex\": null,\r\n    \"subcategoryIndex\": null,\r\n    \"uId\": null\r\n  },\r\n  \"sortPagination\": {\r\n    \"offset\": 0,\r\n    \"limit\": 9\r\n  }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{listings_and_request_url}}/listing/listing/searchListings",
-							"host": [
-								"{{listings_and_request_url}}"
-							],
-							"path": [
-								"listing",
-								"listing",
-								"searchListings"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Search by filters",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"terms\": {\r\n    \"searchString\": \"\",\r\n    \"categoryIndex\": 1,\r\n    \"subcategoryIndex\": null,\r\n    \"uId\": null,\r\n    \"serviceType\": \"{{serviceType}}\"\r\n  },\r\n  \"sortPagination\": {\r\n    \"offset\": 0,\r\n    \"limit\": 9\r\n  }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{listings_and_request_url}}/listing/listing/searchListings",
-							"host": [
-								"{{listings_and_request_url}}"
-							],
-							"path": [
-								"listing",
-								"listing",
-								"searchListings"
 							]
 						}
 					},
@@ -1522,6 +1035,19 @@
 				},
 				{
 					"name": "Delete Marked Notifications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1533,7 +1059,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "\"64ed3cd4e8ab8600015a4105\"",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1549,6 +1075,115 @@
 								"notification",
 								"notification",
 								"removeMarkedNotifications"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "Get the chat room",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"success\": true,\r\n  \"chatroom\": \"5c621663bea4490005ebe9d2\",\r\n  \"myCurrentUser\": \"647534923a2ba900019a4570\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{profile_base_url}}/profile/profile/getFirstChatroom",
+							"host": [
+								"{{profile_base_url}}"
+							],
+							"path": [
+								"profile",
+								"profile",
+								"getFirstChatroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chat room history",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserIdToList\": [\r\n        \"5c621663bea4490005ebe9d2\",\r\n        \"64e82952b5b72800011eb5dd\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{profile_base_url}}/profile/profile/getChatRoomDetailsList/",
+							"host": [
+								"{{profile_base_url}}"
+							],
+							"path": [
+								"profile",
+								"profile",
+								"getChatRoomDetailsList",
+								""
 							]
 						}
 					},
