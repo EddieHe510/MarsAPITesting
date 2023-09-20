@@ -20,6 +20,22 @@
 									"var user_token = jsonData.token.token\r",
 									"pm.environment.set(\"env_token\", \"Bearer\"+\" \"+user_token)\r",
 									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\":{\r",
+									"     \"isSuccess\":{\"type\":\"boolean\"},\r",
+									"     \"token\":{\r",
+									"        \"token\":{\"type\":\"string\"},\r",
+									"        \"expires\":{\"type\":\"boolean\"}\r",
+									"     }    \r",
+									"    },\r",
+									"    \"required\":[\"isSuccess\",\"token\"]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate response schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
@@ -27,6 +43,10 @@
 									"pm.test(\"Success Message\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -81,6 +101,23 @@
 											"pm.test(\"Message should be same as expected message\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.message).to.eql(\"Availability Updated Successfully\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"message\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"message\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -133,6 +170,23 @@
 											"pm.test(\"Message should same as expect\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.message).to.eql(\"Password Changed Successfully\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"message\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"message\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -182,9 +236,26 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Your test name\", function () {\r",
+											"pm.test(\"The success message should be true\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.value).to.eql(100);\r",
+											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"message\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"message\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -246,6 +317,23 @@
 											"pm.test(\"Success message should be true\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"id\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"id\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -298,6 +386,23 @@
 											"pm.test(\"Success message should be true\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"message\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"message\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -350,6 +455,23 @@
 											"pm.test(\"Success message should be true\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"language\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"language\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -411,7 +533,24 @@
 											"\r",
 											"var jsonData = pm.response.json()\r",
 											"var skill_id = jsonData.id\r",
-											"pm.globals.set(\"skills_id\",skill_id);"
+											"pm.globals.set(\"skills_id\",skill_id);\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"id\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"id\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -463,6 +602,23 @@
 											"pm.test(\"Success message should be true\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"id\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"id\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -515,6 +671,22 @@
 											"pm.test(\"Success message should be true\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"skill\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"skill\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -556,171 +728,6 @@
 					]
 				},
 				{
-					"name": "Education",
-					"item": [
-						{
-							"name": "Add Education",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Success Message\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.success).to.eql(true);\r",
-											"});\r",
-											"\r",
-											"var jsonData = pm.response.json()\r",
-											"var education_id = jsonData.id\r",
-											"pm.globals.set(\"educations_id\",education_id);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{env_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"country\": \"{{country}}\",\r\n  \"instituteName\": \"{{instituteName}}\",\r\n  \"title\": \"{{title}}\",\r\n  \"degree\": \"{{degree}}\",\r\n  \"yearOfGraduation\": \"{{yearOfGraduation}}\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{profile_base_url}}/profile/profile/addEducation",
-									"host": [
-										"{{profile_base_url}}"
-									],
-									"path": [
-										"profile",
-										"profile",
-										"addEducation"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update Education",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Success message should be true\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.success).to.eql(true);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{env_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"country\": \"{{updateCountry}}\",\r\n  \"instituteName\": \"{{updateInstituteName}}\",\r\n  \"id\": \"{{educations_id}}\",\r\n  \"title\": \"{{updateTitle}}\",\r\n  \"degree\": \"{{updateDegree}}\",\r\n  \"yearOfGraduation\": \"{{updateYearOfGraduation}}\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{profile_base_url}}/profile/profile/updateEducation",
-									"host": [
-										"{{profile_base_url}}"
-									],
-									"path": [
-										"profile",
-										"profile",
-										"updateEducation"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Education",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Success message should be true\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.success).to.eql(true);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{env_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"{{educations_id}}\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{profile_base_url}}/profile/profile/deleteEducation",
-									"host": [
-										"{{profile_base_url}}"
-									],
-									"path": [
-										"profile",
-										"profile",
-										"deleteEducation"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "Certifications",
 					"item": [
 						{
@@ -741,7 +748,24 @@
 											"\r",
 											"var jsonData = pm.response.json()\r",
 											"var certification_id = jsonData.id\r",
-											"pm.globals.set(\"certification_id\",certification_id);"
+											"pm.globals.set(\"certification_id\",certification_id);\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"id\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"id\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -793,6 +817,21 @@
 											"pm.test(\"Success message should be true\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -845,6 +884,22 @@
 											"pm.test(\"Success message should be true\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.success).to.eql(true);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\":{\r",
+											"     \"success\":{\"type\":\"boolean\"},\r",
+											"     \"certificationName\":{\"type\":\"string\"}\r",
+											"    },\r",
+											"    \"required\":[\"success\",\"certificationName\"]\r",
+											"};\r",
+											"\r",
+											"pm.test(\"Validate response schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -898,8 +953,8 @@
 							"script": {
 								"exec": [
 									"var jsonData = pm.response.json()\r",
-									"var newlisting_id = jsonData.id\r",
-									"pm.globals.set(\"newlistings_id\",newlisting_id);\r",
+									"var listing_id = jsonData.id\r",
+									"pm.globals.set(\"listings_id\",listing_id);\r",
 									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -908,6 +963,24 @@
 									"pm.test(\"The success should be true\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\":{\r",
+									"     \"success\":{\"type\":\"boolean\"},\r",
+									"     \"id\":{\"type\":\"string\"},\r",
+									"     \"editFlag\":{\"type\":\"boolean\"}\r",
+									"    },\r",
+									"    \"required\":[\"success\",\"id\",\"editFlag\"]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate response schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -953,10 +1026,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var jsonData = pm.response.json()\r",
-									"var listing_id = jsonData.id\r",
-									"pm.globals.set(\"listings_id\",listing_id);\r",
-									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
@@ -964,6 +1033,24 @@
 									"pm.test(\"Success Message should be true\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\":{\r",
+									"     \"success\":{\"type\":\"boolean\"},\r",
+									"     \"id\":{\"type\":\"string\"},\r",
+									"     \"editFlag\":{\"type\":\"boolean\"}\r",
+									"    },\r",
+									"    \"required\":[\"success\",\"id\",\"editFlag\"]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate response schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -981,7 +1068,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"{{updateSkillTitle}}\",\r\n    \"description\": \"{{updateSkillDescription}}\",\r\n    \"categoryId\": {{updateSkillCategoryId}},\r\n    \"subcategoryId\": \"{{updateSkillSubcategoryId}}\",\r\n    \"tags\": [\r\n        {\r\n            \"id\": \"{{updateTagsId1}}\",\r\n            \"text\": \"{{updateTagsText1}}\"\r\n        },\r\n        {\r\n            \"id\": \"{{updateTagsId2}}\",\r\n            \"text\": \"{{updateTagsText2}}\"\r\n        }\r\n    ],\r\n    \"serviceType\": {{updateSkillServiceType}},\r\n    \"locationType\": {{updateSkillLocationType}},\r\n    \"availability\": {\r\n        \"startDate\": \"{{updateSkillStartDate}}\",\r\n        \"endDate\": \"{{updateSkillEndDate}}\",\r\n        \"dayEntries\": [\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": {{updateSkillAvailable}},\r\n                \"StartTime\": \"{{updateSkillStartTime}}\",\r\n                \"EndTime\": \"{{updateSkillEndTime}}\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            }\r\n        ]\r\n    },\r\n    \"skillTrade\": [\r\n        {\r\n            \"id\": \"{{updateSkillTradeId}}\",\r\n            \"text\": \"{{updateSkillTradeText}}\"\r\n        }\r\n    ],\r\n    \"isTradable\": {{updateIsTradable}},\r\n    \"charge\": {{updateSkillCharge}},\r\n    \"credentials\": {{updateSkillCredentials}},\r\n    \"isActive\": {{updateSkillIsActive}},\r\n    \"id\": \"{{newlistings_id}}\",\r\n    \"sellerId\": \"647534923a2ba900019a4570\",\r\n    \"workSample\": null,\r\n    \"comments\": null,\r\n    \"ratings\": null,\r\n    \"ratingAverages\": null,\r\n    \"ratingTotalsAndCounts\": null,\r\n    \"createdOn\": \"2023-07-17T06:39:03.364Z\",\r\n    \"createdBy\": \"647534923a2ba900019a4570\",\r\n    \"updatedOn\": \"2023-08-24T23:51:59.057Z\",\r\n    \"updatedBy\": \"647534923a2ba900019a4570\",\r\n    \"isDeleted\": false\r\n}",
+							"raw": "{\r\n    \"title\": \"LOL\",\r\n    \"description\": \"Hi!!Anyone play LOL?\",\r\n    \"categoryId\": 8,\r\n    \"subcategoryId\": \"5\",\r\n    \"tags\": [\r\n        {\r\n            \"id\": \"LOL\",\r\n            \"text\": \"LOL\"\r\n        },\r\n        {\r\n            \"id\": \"Games\",\r\n            \"text\": \"Games\"\r\n        }\r\n    ],\r\n    \"serviceType\": 1,\r\n    \"locationType\": 0,\r\n    \"availability\": {\r\n        \"startDate\": \"2023/10/30\",\r\n        \"endDate\": \"2023/11/30\",\r\n        \"dayEntries\": [\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": true,\r\n                \"StartTime\": \"12:00\",\r\n                \"EndTime\": \"14:30\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            },\r\n            {\r\n                \"Available\": false,\r\n                \"StartTime\": \"\",\r\n                \"EndTime\": \"\"\r\n            }\r\n        ]\r\n    },\r\n    \"skillTrade\": [\r\n        {\r\n            \"id\": \"Hero\",\r\n            \"text\": \"Hero\"\r\n        }\r\n    ],\r\n    \"isTradable\": true,\r\n    \"charge\": 0,\r\n    \"credentials\": true,\r\n    \"isActive\": true,\r\n    \"id\": \"{{listings_id}}\",\r\n    \"sellerId\": \"647534923a2ba900019a4570\",\r\n    \"workSample\": null,\r\n    \"comments\": null,\r\n    \"ratings\": null,\r\n    \"ratingAverages\": null,\r\n    \"ratingTotalsAndCounts\": null,\r\n    \"createdOn\": \"2023-07-17T06:39:03.364Z\",\r\n    \"createdBy\": \"647534923a2ba900019a4570\",\r\n    \"updatedOn\": \"2023-08-24T23:51:59.057Z\",\r\n    \"updatedBy\": \"647534923a2ba900019a4570\",\r\n    \"isDeleted\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1011,6 +1098,28 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\":{\r",
+									"     \"success\":{\"type\":\"boolean\"},\r",
+									"     \"title\":{\"type\":\"string\"}\r",
+									"    },\r",
+									"    \"required\":[\"success\",\"title\"]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate response schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1028,7 +1137,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{{listings_id}}",
+							"raw": "\"{{listings_id}}\"",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1052,10 +1161,129 @@
 			]
 		},
 		{
-			"name": "Manage Requests",
+			"name": "Notifications",
 			"item": [
 				{
-					"name": "Received Request",
+					"name": "Get notification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\":{\r",
+									"     \"success\":{\"type\":\"boolean\"},\r",
+									"     \"noOfNotification\":{\"type\":\"number\"},\r",
+									"     \"noOfMessages\":{\"type\":\"number\"}\r",
+									"    },\r",
+									"    \"required\":[\"success\",\"noOfNotification\",\"noOfMessages\"]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate response schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{profile_base_url}}/notification/notification/getNewNotificationCount",
+							"host": [
+								"{{profile_base_url}}"
+							],
+							"path": [
+								"notification",
+								"notification",
+								"getNewNotificationCount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read all notifications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Success message should be true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\":{\r",
+									"     \"success\":{\"type\":\"boolean\"},\r",
+									"    },\r",
+									"    \"required\":[\"success\"]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate response schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{env_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{profile_base_url}}/notification/notification/readAllNotifications",
+							"host": [
+								"{{profile_base_url}}"
+							],
+							"path": [
+								"notification",
+								"notification",
+								"readAllNotifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Load more notifications",
 					"event": [
 						{
 							"listen": "test",
@@ -1067,6 +1295,24 @@
 									"pm.test(\"Success message should be true\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\":{\r",
+									"     \"success\":{\"type\":\"boolean\"},\r",
+									"     \"userNotifications\":{\"type\":\"array\"},\r",
+									"     \"totalCount\":{\"type\":\"number\"}\r",
+									"    },\r",
+									"    \"required\":[\"success\",\"userNotifications\",\"totalCount\"]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate response schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1074,7 +1320,7 @@
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
@@ -1082,31 +1328,37 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"Id\": \"648a42dc41177900015d8075\",\r\n  \"Status\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{listings_and_request_url}}/listing/listing/updateReceivedRequest",
+							"raw": "{{profile_base_url}}/notification/notification/getNotification/?loadMore=6&offSet=0&_=1693267954213",
 							"host": [
-								"{{listings_and_request_url}}"
+								"{{profile_base_url}}"
 							],
 							"path": [
-								"listing",
-								"listing",
-								"updateReceivedRequest"
+								"notification",
+								"notification",
+								"getNotification",
+								""
+							],
+							"query": [
+								{
+									"key": "loadMore",
+									"value": "6"
+								},
+								{
+									"key": "offSet",
+									"value": "0"
+								},
+								{
+									"key": "_",
+									"value": "1693267954213"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Send Request",
+					"name": "Delete Marked Notifications",
 					"event": [
 						{
 							"listen": "test",
@@ -1115,9 +1367,21 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"pm.test(\"The success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\":{\r",
+									"     \"success\":{\"type\":\"boolean\"},\r",
+									"     \"message\":{\"type\":\"string\"}\r",
+									"    },\r",
+									"    \"required\":[\"success\",\"message\"]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate response schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1135,7 +1399,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"ListingId\": \"64e82990be746c0001ff2fdd\",\r\n  \"Message\": \"Hello I am Eddie!\",\r\n  \"TotalHours\": 0,\r\n  \"TotalAmount\": 0\r\n}",
+							"raw": "\"64ed3cd4e8ab8600015a4105\"",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1143,14 +1407,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{listings_and_request_url}}/listing/listing/sendTradeRequest",
+							"raw": "{{profile_base_url}}/notification/notification/removeMarkedNotifications",
 							"host": [
-								"{{listings_and_request_url}}"
+								"{{profile_base_url}}"
 							],
 							"path": [
-								"listing",
-								"listing",
-								"sendTradeRequest"
+								"notification",
+								"notification",
+								"removeMarkedNotifications"
 							]
 						}
 					},
@@ -1171,7 +1435,23 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									""
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\":{\r",
+									"     \"success\":{\"type\":\"boolean\"},\r",
+									"     \"chatroom\":{\"type\":\"string\"},\r",
+									"     \"myCurrentUser\":{\"type\":\"string\"}\r",
+									"    },\r",
+									"    \"required\":[\"success\",\"chatroom\",\"myCurrentUser\"]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate response schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1226,6 +1506,22 @@
 									"pm.test(\"The success message should be true\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\":{\r",
+									"     \"success\":{\"type\":\"boolean\"},\r",
+									"     \"result\":{\"type\":\"array\"},\r",
+									"    },\r",
+									"    \"required\":[\"success\",\"result\"]\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate response schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1260,295 +1556,6 @@
 								"profile",
 								"getChatRoomDetailsList",
 								""
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Search Skills",
-			"item": [
-				{
-					"name": "Search Skill by all categories",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"terms\": {\r\n    \"searchString\": \"{{searchString}}\",\r\n    \"categoryIndex\": null,\r\n    \"subcategoryIndex\": null,\r\n    \"uId\": null\r\n  },\r\n  \"sortPagination\": {\r\n    \"offset\": 0,\r\n    \"limit\": 9\r\n  }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{listings_and_request_url}}/listing/listing/searchListings",
-							"host": [
-								"{{listings_and_request_url}}"
-							],
-							"path": [
-								"listing",
-								"listing",
-								"searchListings"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Search by filters",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"terms\": {\r\n    \"searchString\": \"\",\r\n    \"categoryIndex\": 1,\r\n    \"subcategoryIndex\": null,\r\n    \"uId\": null,\r\n    \"serviceType\": \"{{serviceType}}\"\r\n  },\r\n  \"sortPagination\": {\r\n    \"offset\": 0,\r\n    \"limit\": 9\r\n  }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{listings_and_request_url}}/listing/listing/searchListings",
-							"host": [
-								"{{listings_and_request_url}}"
-							],
-							"path": [
-								"listing",
-								"listing",
-								"searchListings"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Notifications",
-			"item": [
-				{
-					"name": "Get notification",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{profile_base_url}}/notification/notification/getNewNotificationCount",
-							"host": [
-								"{{profile_base_url}}"
-							],
-							"path": [
-								"notification",
-								"notification",
-								"getNewNotificationCount"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Read all notifications",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{profile_base_url}}/notification/notification/readAllNotifications",
-							"host": [
-								"{{profile_base_url}}"
-							],
-							"path": [
-								"notification",
-								"notification",
-								"readAllNotifications"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Load more notifications",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Success message should be true\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.success).to.eql(true);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{profile_base_url}}/notification/notification/getNotification/?loadMore=6&offSet=0&_=1693267954213",
-							"host": [
-								"{{profile_base_url}}"
-							],
-							"path": [
-								"notification",
-								"notification",
-								"getNotification",
-								""
-							],
-							"query": [
-								{
-									"key": "loadMore",
-									"value": "6"
-								},
-								{
-									"key": "offSet",
-									"value": "0"
-								},
-								{
-									"key": "_",
-									"value": "1693267954213"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Marked Notifications",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{env_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{profile_base_url}}/notification/notification/removeMarkedNotifications",
-							"host": [
-								"{{profile_base_url}}"
-							],
-							"path": [
-								"notification",
-								"notification",
-								"removeMarkedNotifications"
 							]
 						}
 					},
